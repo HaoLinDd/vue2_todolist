@@ -2,9 +2,9 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <header-list/>
-        <main-list/>
-        <footer-list/>
+        <header-list :addTodo="addTodo"/>
+        <main-list :todos="todos" :changeDone="changeDone" :deleteTods="deleteTods"/>
+        <footer-list :todos="todos" :checkAllTodo="checkAllTodo" :clearAll="clearAll"/>
       </div>
     </div>
   </div>
@@ -21,6 +21,40 @@ export default {
     HeaderList,
     MainList,
     FooterList
+  },
+  data () {
+    return {
+      todos: [
+        {'id':'001',title: '老王', done: true},
+        {'id':'002',title: '卢老师', done: true},
+        {'id':'003',title: '温哥', done: false}
+      ]
+    }
+  },
+  methods: {
+    // 添加todo
+    addTodo(todoObj){
+      this.todos.unshift(todoObj)
+    },
+    // 勾选状态切换
+    changeDone(id){
+      this.todos.forEach((todo) => {
+        if (todo.id == id) {
+          todo.done = !todo.done
+        }
+      })
+    },
+    // 删除todo
+    deleteTods(id){
+      this.todos = this.todos.filter( todo => todo.id !== id )
+    },
+    // 全选or取消全选
+    checkAllTodo(done){
+      this.todos.forEach(todo => todo.done = done )
+    },
+    clearAll(){
+      this.todos = this.todos.filter( todo => !todo.done  )
+    }
   }
 }
 </script>

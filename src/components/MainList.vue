@@ -1,8 +1,12 @@
 <template>
   <ul class="todo-main">
-    <item-list/>
-    <item-list/>
-    <item-list/>
+    <item-list 
+    v-for="todoObj in todos" 
+    :key="todoObj.id"
+    :todo="todoObj"
+    :changeDone="changeDone"
+    :deleteTods="deleteTods"
+    />
   </ul>
 </template>
 
@@ -11,9 +15,7 @@ import ItemList from "./ItemList";
 export default {
   name: 'MainList',
   components: { ItemList },
-  props: {
-    
-  }
+  props: ['todos','changeDone','deleteTods']
 }
 </script>
 
